@@ -1,5 +1,5 @@
 Just run this one command
 
 ```
-sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply jaronwilding
+powershell -Command "irm 'https://github.com/jaronwilding/dotfiles/raw/main/initial_setup.ps1' | iex"
 ```
