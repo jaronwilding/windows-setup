@@ -2,5 +2,7 @@
 winget install --silent --id "Git.Git" --accept-source-agreements --accept-package-agreements
 winget install --silent --id "twpayne.chezmoi" --accept-source-agreements --accept-package-agreements
 
+$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine")
+$env:Path += ";" + [System.Environment]::GetEnvironmentVariable("Path","User")  
 
-Invoke-Command { & "chezmoi init --apply jaronwilding" } -NoNewScope
+chezmoi init --apply jaronwilding
