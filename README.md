@@ -1,5 +1,5 @@
 Just run this one command
 
 ```
-iex "&{$(irm 'https://get.chezmoi.io/ps1')} -b '$HOME/.local/bin'" --init --apply jaronwilding
+sh -c "$(curl -fsLS get.chezmoi.io/lb)" -- init --apply jaronwilding
 ```
