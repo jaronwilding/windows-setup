@@ -234,6 +234,7 @@ function Remove-PreinstalledApplications{
     process {
         Write-Verbose "Downloading and using the script from Scynex!"
         $debloater = Get-Download "https://github.com/jaronwilding/dotfiles/raw/main/windows10/Windows10SysPrepDebloater.ps1" "Windows10SysPrepDebloater.ps1"
+        Write-Host $debloater
         Invoke-Expression $debloater
     }
     end {
