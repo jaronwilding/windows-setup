@@ -53,6 +53,20 @@ function Get-TempDownloadsFolder{
     return $download_path
 }
 
+function Get-Download{
+    param(
+        [string]$url,
+        [string]$fileName
+    )
+    $download_path = Get-TempDownloadsFolder
+    $download_file = Join-Path $download_path $fileName
+    If(!(Test-Path -Path $download_file)){
+        Write-Verbose "Downloading $fileName..."
+        Invoke-WebRequest "$url" -OutFile $fileName
+    }
+    return $download_file
+}
+
 function Set-Privacy{
     [CmdletBinding()]Param()
     begin {
@@ -60,19 +74,22 @@ function Set-Privacy{
         Write-Output "Getting privacy settings."
     }
     process {
-        $download_path = Get-TempDownloadsFolder
-        $shutup_10 = Join-Path $download_path "OOSU10.exe"
-        $shutup_config = Join-Path $download_path "ooshutup10.cfg"
+        # $download_path = Get-TempDownloadsFolder
+        # $shutup_10 = Join-Path $download_path "OOSU10.exe"
+        # $shutup_config = Join-Path $download_path "ooshutup10.cfg"
 
-        If(!(Test-Path -Path $shutup_10)){
-            Write-Verbose "Downloading Shutup10..."
-            Invoke-WebRequest "https://dl5.oo-software.com/files/ooshutup10/OOSU10.exe" -OutFile $shutup_10
-        }
+        # If(!(Test-Path -Path $shutup_10)){
+        #     Write-Verbose "Downloading Shutup10..."
+        #     Invoke-WebRequest "https://dl5.oo-software.com/files/ooshutup10/OOSU10.exe" -OutFile $shutup_10
+        # }
 
-        If(!(Test-Path -Path $shutup_config)){
-            Write-Verbose "Downloading Shutup10 config file..."
-            Invoke-WebRequest "https://github.com/jaronwilding/dotfiles/raw/main/windows10/config/ooshutup10.cfg" -OutFile $shutup_config
-        }
+        # If(!(Test-Path -Path $shutup_config)){
+        #     Write-Verbose "Downloading Shutup10 config file..."
+        #     Invoke-WebRequest "https://github.com/jaronwilding/dotfiles/raw/main/windows10/config/ooshutup10.cfg" -OutFile $shutup_config
+        # }
+
+        $shutup_10 = Get-Download "https://dl5.oo-software.com/files/ooshutup10/OOSU10.exe" "OOSU10.exe"
+        $shutup_config= Get-Download "https://github.com/jaronwilding/dotfiles/raw/main/windows10/config/ooshutup10.cfg" "ooshutup10.cfg"
 
         Write-Verbose "Running Shutup10 with pre-configured settings..."
         Start-Process -FilePath $shutup_10 -Verb RunAs -Wait -ArgumentList "$shutup_config", "/quiet"
@@ -97,6 +114,8 @@ function Optimize-Settings {
             
             Invoke-WebRequest 'https://github.com/jaronwilding/dotfiles/raw/main/windows10/config/defaultWindowsSettings.csv' -OutFile $csvfile
         }
+
+        $csvfile = Get-Download "https://github.com/jaronwilding/dotfiles/raw/main/windows10/config/defaultWindowsSettings.csv" "defaultWindowsSettings.csv"
 
         $settingValues = Import-Csv $csvfile | ForEach-Object {
             [PSCustomObject]@{
@@ -214,7 +233,8 @@ function Remove-PreinstalledApplications{
     }
     process {
         Write-Verbose "Downloading and using the script from Scynex!"
-        Invoke-WebRequest 'https://github.com/jaronwilding/dotfiles/raw/main/windows10/Windows10SysPrepDebloater.ps1' | Invoke-Expression
+        $debloater = Get-Download "https://github.com/jaronwilding/dotfiles/raw/main/windows10/Windows10SysPrepDebloater.ps1" "Windows10SysPrepDebloater.ps1"
+        Invoke-Expression $debloater
     }
     end {
         Write-Output "Debloated!"
