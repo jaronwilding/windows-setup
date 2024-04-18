@@ -94,7 +94,8 @@ function Optimize-Settings {
 
         If(!(Test-Path -Path $csvfile)){
             Write-Verbose "Downloading custom settings CSV..."
-            Invoke-WebRequest "https://github.com/jaronwilding/dotfiles/raw/main/windows10/config/defaultWindowsSettings.csv" -OutFile $csvfile
+            
+            Invoke-WebRequest 'https://github.com/jaronwilding/dotfiles/raw/main/windows10/config/defaultWindowsSettings.csv' -OutFile $csvfile
         }
 
         $settingValues = Import-Csv $csvfile | ForEach-Object {
@@ -220,7 +221,7 @@ function Remove-PreinstalledApplications{
         Get-AppxPackage -AllUsers | Where-Object {$_.Name -Match $listedApps} | Remove-AppxPackage -ErrorAction SilentlyContinue
         # Run this again to avoid error on 1803 or having to reboot.
         Get-AppxPackage -AllUsers | Where-Object {$_.Name -Match $listedApps} | Remove-AppxPackage -ErrorAction SilentlyContinue
-        $AppxRemoval = Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -Match $WhitelistedApps} 
+        $AppxRemoval = Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -NotMatch $WhitelistedApps} 
         ForEach ( $App in $AppxRemoval) {
             Remove-AppxProvisionedPackage -Online -PackageName $App.PackageName | Out-Null
         }
