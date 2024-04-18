@@ -27,7 +27,8 @@ function Set-Backup{
         Write-Output "Creating a restore point..."
     }
     process {
-        Checkpoint-Computer -Description "RestorePoint1" -RestorePointType "MODIFY_SETTINGS" -WhatIf
+        Enable-ComputerRestore -Drive "C:\"
+        Checkpoint-Computer -Description "RestorePoint1" -RestorePointType "MODIFY_SETTINGS"
     }
     end {
         Write-Output "Restore point created!"
@@ -70,7 +71,7 @@ function Set-Privacy{
 
         If(!(Test-Path -Path $shutup_config)){
             Write-Verbose "Downloading Shutup10 config file..."
-            Invoke-WebRequest "https://github.com/jaronwilding/dotfiles/blob/main/windows10/ooshutup10.cfg?raw=true" -OutFile $shutup_config
+            Invoke-WebRequest "https://github.com/jaronwilding/dotfiles/raw/main/windows10/config/ooshutup10.cfg" -OutFile $shutup_config
         }
 
         Write-Verbose "Running Shutup10 with pre-configured settings..."
@@ -89,11 +90,11 @@ function Optimize-Settings {
     }
     process {
         $download_path = Get-TempDownloadsFolder
-        $csvfile = Join-Path $download_path "defaultsettings.csv"
+        $csvfile = Join-Path $download_path "defaultWindowsSettings.csv"
 
         If(!(Test-Path -Path $csvfile)){
             Write-Verbose "Downloading custom settings CSV..."
-            Invoke-WebRequest "https://github.com/jaronwilding/dotfiles/blob/main/windows10/defaultsettings.csv?raw=true" -OutFile $csvfile
+            Invoke-WebRequest "https://github.com/jaronwilding/dotfiles/raw/main/windows10/config/defaultWindowsSettings.csv" -OutFile $csvfile
         }
 
         $settingValues = Import-Csv $csvfile | ForEach-Object {
@@ -101,22 +102,25 @@ function Optimize-Settings {
                 "path"          = $_.Path
                 "key"           = $_.Key
                 'value'         = $_.Value
-                "propertytype"  = $_.Type
+                "propertytype"  = $_.PropertyType
                 'description'   = $_.description
             }
         }
-        foreach($setting in $settingValues){
+        ForEach($setting in $settingValues){
             Write-Verbose $setting.description
-            New-ItemProperty -Path $setting.path -Name $setting.key -Value $setting.value -PropertyType $setting.propertytype -Force
+            If(!(Test-Path -Path $setting.path)) {
+                New-Item -Path $setting.path | Out-Null
+            }
+            New-ItemProperty -Path $setting.path -Name $setting.key -Value $setting.value -PropertyType $setting.propertytype -Force | Out-Null
         }
 
-        $service =  @(
+        $services =  @(
             'DiagTrack'
         )
-        foreach ($serviceName in $services) {
+        ForEach ($serviceName in $services) {
             if (Get-Service -Name $serviceName -ErrorAction SilentlyContinue) {
                 Write-Verbose "Service $serviceName exists. Disabling service..."
-                New-ItemProperty -Path "HKLM\SYSTEM\CurrentControlSet\Services\$serviceName" -Name Start -Value $4 -PropertyType DWORD -Force
+                New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\$serviceName" -Name Start -Value $4 -PropertyType DWORD -Force | Out-Null
                 Stop-Service $serviceName -Force
                 $process = Get-Process -Name $serviceName -ErrorAction SilentlyContinue
                 if ($process) {
@@ -135,15 +139,144 @@ function Optimize-Settings {
     }
 }
 
+function Enable-WinFeatures{
+    [CmdletBinding()]Param()
+    begin {
+        Write-Output "--------------------------------------------------------"
+        Write-Output "Enabling specific windows features"
+    }
+    process {
+        $features = @(
+                "NetFx3",
+                "WCF-Services45",
+                "WCF-TCP-PortSharing45",
+                "MediaPlayback",
+                "WindowsMediaPlayer",
+                "SmbDirect",
+                "Printing-PrintToPDFServices-Features",
+                "Printing-XPSServices-Features",
+                "SearchEngine-Client-Package",
+                "MSRDC-Infrastructure",
+                "Microsoft-SnippingTool",
+                "Microsoft-RemoteDesktopConnection",
+                "WorkFolders-Client",
+                "Printing-Foundation-Features",
+                "Printing-Foundation-InternetPrinting-Client",
+                "MicrosoftWindowsPowerShellV2Root",
+                "MicrosoftWindowsPowerShellV2",
+                "NetFx4-AdvSrvs",
+                "Internet-Explorer-Optional-amd64",
+                "Microsoft-Windows-Subsystem-Linux",
+                "HypervisorPlatform",
+                "VirtualMachinePlatform",
+                "Containers-DisposableClientVM",
+                "Microsoft-Hyper-V-All",
+                "Microsoft-Hyper-V",
+                "Microsoft-Hyper-V-Tools-All",
+                "Microsoft-Hyper-V-Management-PowerShell",
+                "Microsoft-Hyper-V-Hypervisor",
+                "Microsoft-Hyper-V-Services",
+                "Microsoft-Hyper-V-Management-Clients"
+            )
+        ForEach($feature in $features)
+        {
+            Write-Verbose "Enabling feature: $feature"
+            Enable-WindowsOptionalFeature -Online -FeatureName $feature -NoRestart | Out-Null
+        }
+    }
+    end {
+        
+        Write-Output "Windows features have been enabled"
+    }
+}
+
+function Install-WinGetApp {
+    param (
+        [string]$PackageID
+    )
+    begin {
+        Write-Verbose -Message "Preparing to install $PackageID"
+    }
+    process {
+        Write-Verbose -Message "Installing $Package"
+        winget install --silent --id "$PackageID" --accept-source-agreements --accept-package-agreements
+    }
+    end {
+        Write-Verbose -Message "Installing $Package"
+    }
+}
+
+function Remove-PreinstalledApplications{
+    begin {
+        Write-Output "--------------------------------------------------------"
+        Write-Output "Uninstalling bloatware applications..."
+    }
+    process {
+        [regex]$listedApps = 'Microsoft.Getstarted|Microsoft.GetHelp|Microsoft.BingWeather|Microsoft.Microsoft3DViewer|`
+        Microsoft.MicrosoftOfficeHub|Microsoft.MicrosoftSolitaireCollection|Microsoft.MixedReality.Portal|Microsoft.Office.OneNote|Microsoft.People|`
+        Microsoft.SkypeApp|Microsoft.Wallet|microsoft.windowscommunicationsapps|Microsoft.WindowsFeedbackHub|Microsoft.WindowsMaps|Microsoft.Xbox.TCUI|`
+        Microsoft.XboxApp|Microsoft.XboxGameOverlay|Microsoft.XboxGamingOverlay|Microsoft.XboxIdentityProvider|Microsoft.XboxSpeechToTextOverlay|`
+        Microsoft.YourPhone|Microsoft.ZuneMusic|Microsoft.ZuneVideo|Microsoft.Windows.Ai.Copilot.Provider|SpotifyAB.SpotifyMusic|Microsoft.BingSearch'
+        Get-AppxPackage -AllUsers | Where-Object {$_.Name -Match $listedApps} | Remove-AppxPackage -ErrorAction SilentlyContinue
+        # Run this again to avoid error on 1803 or having to reboot.
+        Get-AppxPackage -AllUsers | Where-Object {$_.Name -Match $listedApps} | Remove-AppxPackage -ErrorAction SilentlyContinue
+        $AppxRemoval = Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -NotMatch $WhitelistedApps} 
+        ForEach ( $App in $AppxRemoval) {
+            Remove-AppxProvisionedPackage -Online -PackageName $App.PackageName 
+        }
+    }
+    end {
+        Write-Output "Debloated!"
+    }
+}
+
+function Install-Applications {
+    [CmdletBinding()]Param()
+    begin {
+        Write-Output "--------------------------------------------------------"
+        Write-Output "Installing 3rd-Party tools..."
+    }
+    process {
+        $WinGet = @(
+            "Microsoft.DotNet.SDK.3_1",
+            "Microsoft.DotNet.SDK.5",
+            "Microsoft.DotNet.SDK.6",
+            "Microsoft.DotNet.SDK.7",
+            "Microsoft.DotNet.SDK.8",
+            "Microsoft.WindowsTerminal",
+            "Microsoft.PowerToys",
+            "Microsoft.PowerShell",
+            "VideoLAN.VLC",
+            "Discord.Discord",
+            "Valve.Steam",
+            "Starship.Starship",
+            "chrisant996.Clink",
+            "Mozilla.Firefox",
+            "Piriform.Defraggler"
+        )
+        ForEach ($item in $WinGet) {
+            Install-WinGetApp -PackageID "$item"
+        }
+    }
+    end {
+        Write-Output "Windows 10 has finished setting up."
+        Write-Output "Advised to restart the machine now! :)"
+    }
+}
+
+
 function Optimize-Windows {
     [CmdletBinding()]Param()
     begin {
         Write-Output "Initializing Windows 10..."
     }
     process {
-        Set-Backup
-        Optimize-Settings
-        Set-Privacy
+        # Set-Backup
+        Remove-PreinstalledApplications
+        # Install-Application
+        # Optimize-Settings
+        # Set-Privacy
+        # Enable-WinFeatures
     }
     end {
         Write-Output "Windows 10 has finished setting up."
