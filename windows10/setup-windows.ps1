@@ -220,7 +220,7 @@ function Remove-PreinstalledApplications{
         Get-AppxPackage -AllUsers | Where-Object {$_.Name -Match $listedApps} | Remove-AppxPackage -ErrorAction SilentlyContinue
         # Run this again to avoid error on 1803 or having to reboot.
         Get-AppxPackage -AllUsers | Where-Object {$_.Name -Match $listedApps} | Remove-AppxPackage -ErrorAction SilentlyContinue
-        $AppxRemoval = Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -Match $WhitelistedApps} 
+        $AppxRemoval = Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -Match $listedApps} 
         ForEach ( $App in $AppxRemoval) {
             Remove-AppxProvisionedPackage -Online -PackageName $App.PackageName 
         }
