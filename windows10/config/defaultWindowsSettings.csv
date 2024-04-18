@@ -1,0 +1,56 @@
+Path,Key,Value,PropertyType,Description
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize,SystemUsesLightTheme,0,DWORD,[USER]: Setting Dark Mode.
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced,ShowSyncProviderNotifications,0,DWORD,[USER]: Disabling ads in File Explorer
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager,RotatingLockScreenEnabled,0,DWORD,[USER]: Disabling ads on Lock Screen (1)
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager,RotatingLockScreenOverlayEnabled,0,DWORD,[USER]: Disabling ads on Lock Screen (2)
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager,SubscribedContent-338387Enabled,0,DWORD,[USER]: Disabling ads on Lock Screen (3)
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager,SubscribedContent-338388Enabled,0,DWORD,[USER]: Disabling Settings app suggestions (1)
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager,SubscribedContent-338393Enabled,0,DWORD,[USER]: Disabling Settings app suggestions (2)
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager,SubscribedContent-310093Enabled,0,DWORD,[USER]: Disabling Windows Experience
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager,SubscribedContent-353694Enabled,0,DWORD,[USER]: Disabling Suggested content
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager,SubscribedContent-338389Enabled,0,DWORD,[USER]: Disabling Get Even More out of Windows (1)
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager,SubscribedContent-353696Enabled,0,DWORD,[USER]: Disabling Get Even More out of Windows (2)
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager,SubscribedContent-353698Enabled,0,DWORD,[USER]: Disabling Timeline Suggestions
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager,SilentInstalledAppsEnabled,0,DWORD,[USER]: Disabling auto install apps
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager,FeatureManagementEnabled,0,DWORD,[USERS]: Disabling auto tiles
+HKCU:\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\PushNotifications,NoTileApplicationNotification,1,DWORD,[USER]: Disable Live tiles
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager,SoftLandingEnabled,0,DWORD,[USER]: Disabling Windows Tips (1)
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\UserProfileEngagement,ScoobeSystemSettingEnabled,0,DWORD,[USER]: Disabling Windows Tips (2)
+HKCU:\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo,Enabled,0,DWORD,[USER]: Disabling personalized ads
+HKCU:\Software\Microsoft\Windows\CurrentVersion\Privacy,TailoredExperiencesWithDiagnosticDataEnabled,0,DWORD,[USER]: Disabling tailored experiences
+HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced,DisallowShaking,1,DWORD,[USER]: Disabling Aero Shake
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager,SlideshowEnabled,0,DWORD,[User]: Disabling lock screen slide show (1)
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager,RotatingLockScreenEnabled,0,DWORD,[User]: Disabling lock screen slide show (2)
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager,RotatingLockScreenOverlayEnabled,1,DWORD,[User]: Disabling lock screen slide show (3)
+HKCU:\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot,TurnOffWindowsCopilot,1,DWORD,[USER]: Disabling Windows Copilot
+HKCU:\Control Panel\Desktop,JPEGImportQuality,100,DWORD,[USER]: Enabling high-res backgrounds.
+HKCU:\SOFTWARE\Policies\Microsoft\Windows\Explorer,DisableSearchBoxSuggestions,1,DWORD,[USER]: Disabling Cortana web search
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced,LaunchTo,1,DWORD,[USER]: Setting explorer startup to This PC
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced,ShowTaskViewButton,0,DWORD,[USER]: Disabling the Task View
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced,ShowCortanaButton,0,DWORD,[USER]: Disabling the Cortana button
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer,HideSCAMeetNow,1,DWORD,[USER]: Hiding the Meet Now button
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds,ShellFeedsTaskbarViewMode,2,DWORD,[USER]: Disabling the News and Interests
+HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search,DisableWebSearch,1,DWORD,[MACHINE]: Disabling Cortana (1)
+HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search,AllowCortanaAboveLock,0,DWORD,[MACHINE]: Disabling Cortana (2)
+HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search,AllowCloudSearch,0,DWORD,[MACHINE]: Disabling Cloud search
+HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search,ConnectedSearchUseWeb,0,DWORD,[MACHINE]: Disabling Cortana
+HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search,AllowSearchToUseLocation,0,DWORD,[MACHINE]: Disabling Location usage in search
+HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate,CreateDesktopShortcut{2CD8A007-E189-409D-A2C8-9AF4EF3C72AA},0,DWORD,[MACHINE] Disabling Edge creating Shortcuts (1)
+HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate,CreateDesktopShortcut{65C35B14-6C1D-4122-AC46-7148CC9D6497},0,DWORD,[MACHINE] Disabling Edge creating Shortcuts (2)
+HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate,CreateDesktopShortcut{0D50BFEC-CD6A-4F9A-964C-C7416E3ACB10},0,DWORD,[MACHINE] Disabling Edge creating Shortcuts (3)
+HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate,CreateDesktopShortcut{56EB18F8-B008-4CBD-B6D2-8C97FE7E9062},0,DWORD,[MACHINE] Disabling Edge creating Shortcuts (4)
+HKLM:\SOFTWARE\Policies\Microsoft\EdgeUpdate,CreateDesktopShortcutDefault,0,DWORD,[MACHINE] Disabling Edge creating Shortcuts (5)
+HKLM:\SOFTWARE\Policies\Microsoft\Edge,EdgeEnhanceImagesEnabled,0,DWORD,[MACHINE] Disabling Enhanced images in Edge
+HKLM:\SOFTWARE\Policies\Microsoft\Edge,PersonalizationReportingEnabled,0,DWORD,[MACHINE] Disabling Personalize the web experience
+HKLM:\SOFTWARE\Policies\Microsoft\Edge,HubsSidebarEnabled,0,DWORD,[MACHINE] Disabling Bing sidebar
+HKLM:\SOFTWARE\Policies\Microsoft\Windows\DataCollection,AllowTelemetry,0,DWORD,[Machine] Disabling telemetry
+HKLM:\Software\Policies\Microsoft\Edge,AutoImportAtFirstRun,4,DWORD,[MACHINE]: Disabling Auto import with Edge
+HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Thumbnail Cache,Autorun,0,DWORD,[MACHINE]: Disabling Thumbnail cleanup
+HKLM:\SOFTWARE\Policies\Microsoft\Windows\Explorer,NoNewAppAlert,1,DWORD,[MACHINE]: Disabling new App alerts
+HKLM:\SOFTWARE\Microsoft\Windows\Windows Error Reporting,Disabled,1,DWORD,[MACHINE]: Disabling Windows Error Reporting
+HKLM:\System\CurrentControlSet\Control\CrashControl,DisplayParameters,1,DWORD,[MACHINE]: Enabling BIOS detailed display (1)
+HKLM:\System\CurrentControlSet\Control\CrashControl,DisableEmoticon,1,DWORD,[MACHINE]: Enabling BIOS detailed display (2)
+HKLM:\SOFTWARE\Policies\Microsoft\Windows\Personalization,NoLockScreenSlideshow,1,DWORD,[MACHINE]: Disabling lock screen slide show
+HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate,ProductVersion,Windows 10,STRING,[MACHINE]: Disabling Windows 11 upgrade (1)
+HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate,TargetReleaseVersion,1,DWORD,[MACHINE]: Disabling Windows 11 upgrade (2)
+HKLM:\SOFTWARE\Policies\Microsoft\Windows\WindowsUpdate,TargetReleaseVersionInfo ,22H2,STRING,[MACHINE]: Disabling Windows 11 upgrade (3)
