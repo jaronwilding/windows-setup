@@ -213,18 +213,9 @@ function Remove-PreinstalledApplications{
         Write-Output "Uninstalling bloatware applications..."
     }
     process {
-        [regex]$listedApps = 'Microsoft.Getstarted|Microsoft.GetHelp|Microsoft.BingWeather|Microsoft.Microsoft3DViewer|`
-        Microsoft.MicrosoftOfficeHub|Microsoft.MicrosoftSolitaireCollection|Microsoft.MixedReality.Portal|Microsoft.Office.OneNote|Microsoft.People|`
-        Microsoft.SkypeApp|Microsoft.Wallet|microsoft.windowscommunicationsapps|Microsoft.WindowsFeedbackHub|Microsoft.WindowsMaps|Microsoft.Xbox.TCUI|`
-        Microsoft.XboxApp|Microsoft.XboxGameOverlay|Microsoft.XboxGamingOverlay|Microsoft.XboxIdentityProvider|Microsoft.XboxSpeechToTextOverlay|`
-        Microsoft.YourPhone|Microsoft.ZuneMusic|Microsoft.ZuneVideo|Microsoft.Windows.Ai.Copilot.Provider|SpotifyAB.SpotifyMusic|Microsoft.BingSearch'
-        Get-AppxPackage -AllUsers | Where-Object {$_.Name -Match $listedApps} | Remove-AppxPackage -ErrorAction SilentlyContinue
-        # Run this again to avoid error on 1803 or having to reboot.
-        Get-AppxPackage -AllUsers | Where-Object {$_.Name -Match $listedApps} | Remove-AppxPackage -ErrorAction SilentlyContinue
-        $AppxRemoval = Get-AppxProvisionedPackage -Online | Where-Object {$_.PackageName -NotMatch $WhitelistedApps} 
-        ForEach ( $App in $AppxRemoval) {
-            Remove-AppxProvisionedPackage -Online -PackageName $App.PackageName | Out-Null
-        }
+        Write-Verbose "Downloading and using the script from Scynex!"
+        $debloater = Invoke-WebRequest -UseBasicParsing 'https://github.com/Sycnex/Windows10Debloater/raw/master/Windows10SysPrepDebloater.ps1'
+        Invoke-Expression "& `"$debloater`" -Sysprep -Debloat -Privacy" 
     }
     end {
         Write-Output "Debloated!"
