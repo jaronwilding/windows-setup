@@ -62,7 +62,7 @@ function Get-Download{
     $download_file = Join-Path $download_path $fileName
     If(!(Test-Path -Path $download_file)){
         Write-Verbose "Downloading $fileName..."
-        Invoke-WebRequest "$url" -OutFile $download_file -Wait
+        Invoke-WebRequest "$url" -OutFile $download_file
     }
     return $download_file
 }
