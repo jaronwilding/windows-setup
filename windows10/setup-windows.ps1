@@ -274,7 +274,7 @@ function Optimize-Windows {
         # Set-Backup
         Remove-PreinstalledApplications
         # Install-Application
-        # Optimize-Settings
+        Optimize-Settings
         # Set-Privacy
         # Enable-WinFeatures
     }
