@@ -30,6 +30,7 @@ HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced,ShowTaskViewBu
 HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced,ShowCortanaButton,0,DWORD,[USER]: Disabling the Cortana button
 HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer,HideSCAMeetNow,1,DWORD,[USER]: Hiding the Meet Now button
 HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds,ShellFeedsTaskbarViewMode,2,DWORD,[USER]: Disabling the News and Interests
+HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Search,SearchboxTaskbarMode,0,DWORD,[USER]: Hiding the search bar
 HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search,DisableWebSearch,1,DWORD,[MACHINE]: Disabling Cortana (1)
 HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search,AllowCortanaAboveLock,0,DWORD,[MACHINE]: Disabling Cortana (2)
 HKLM:\SOFTWARE\Policies\Microsoft\Windows\Windows Search,AllowCloudSearch,0,DWORD,[MACHINE]: Disabling Cloud search
