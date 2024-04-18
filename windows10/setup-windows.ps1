@@ -62,7 +62,7 @@ function Get-Download{
     $download_file = Join-Path $download_path $fileName
     If(!(Test-Path -Path $download_file)){
         Write-Verbose "Downloading $fileName..."
-        Invoke-WebRequest "$url" -OutFile $fileName
+        Invoke-WebRequest "$url" -OutFile $download_file -Wait
     }
     return $download_file
 }
@@ -234,7 +234,6 @@ function Remove-PreinstalledApplications{
     process {
         Write-Verbose "Downloading and using the script from Scynex!"
         $debloater = Get-Download "https://github.com/jaronwilding/dotfiles/raw/main/windows10/Windows10SysPrepDebloater.ps1" "Windows10SysPrepDebloater.ps1"
-        Write-Host $debloater
         Invoke-Expression $debloater
     }
     end {
