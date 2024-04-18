@@ -214,8 +214,7 @@ function Remove-PreinstalledApplications{
     }
     process {
         Write-Verbose "Downloading and using the script from Scynex!"
-        $debloater = Invoke-WebRequest -UseBasicParsing 'https://github.com/Sycnex/Windows10Debloater/raw/master/Windows10SysPrepDebloater.ps1'
-        Invoke-Expression "& `"$debloater`" -Sysprep -Debloat -Privacy" 
+        Invoke-WebRequest -UseBasicParsing 'https://github.com/jaronwilding/dotfiles/raw/main/windows10/Windows10SysPrepDebloater.ps1' | Invoke-Expression
     }
     end {
         Write-Output "Debloated!"
