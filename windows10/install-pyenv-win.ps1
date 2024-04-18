@@ -26,7 +26,7 @@ param (
     [Switch] $Uninstall = $False
 )
     
-$PyEnvDir = "C:\Custom\Managers\.pyenv"
+$PyEnvDir = "C:\Custom\Managers\pyenv"
 $PyEnvWinDir = "${PyEnvDir}\pyenv-win"
 $BinPath = "${PyEnvWinDir}\bin"
 $ShimsPath = "${PyEnvWinDir}\shims"
