@@ -106,14 +106,14 @@ function Optimize-Settings {
         Write-Output "Adjusting settings..."
     }
     process {
-        $download_path = Get-TempDownloadsFolder
-        $csvfile = Join-Path $download_path "defaultWindowsSettings.csv"
+        # $download_path = Get-TempDownloadsFolder
+        # $csvfile = Join-Path $download_path "defaultWindowsSettings.csv"
 
-        If(!(Test-Path -Path $csvfile)){
-            Write-Verbose "Downloading custom settings CSV..."
+        # If(!(Test-Path -Path $csvfile)){
+        #     Write-Verbose "Downloading custom settings CSV..."
             
-            Invoke-WebRequest 'https://github.com/jaronwilding/dotfiles/raw/main/windows10/config/defaultWindowsSettings.csv' -OutFile $csvfile
-        }
+        #     Invoke-WebRequest 'https://github.com/jaronwilding/dotfiles/raw/main/windows10/config/defaultWindowsSettings.csv' -OutFile $csvfile
+        # }
 
         $csvfile = Get-Download "https://github.com/jaronwilding/dotfiles/raw/main/windows10/config/defaultWindowsSettings.csv" "defaultWindowsSettings.csv"
 
@@ -234,7 +234,7 @@ function Remove-PreinstalledApplications{
     process {
         Write-Verbose "Downloading and using the script from Scynex!"
         $debloater = Get-Download "https://github.com/jaronwilding/dotfiles/raw/main/windows10/Windows10SysPrepDebloater.ps1" "Windows10SysPrepDebloater.ps1"
-        . $debloater
+        # . $debloater
         Write-Host "$debloater Sourced"
     }
     end {
@@ -296,4 +296,4 @@ function Optimize-Windows {
     }
 }
 
-Optimize-Windows
+Optimize-Windows -Verbose
