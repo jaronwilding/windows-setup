@@ -7,5 +7,5 @@ It's advised that when you first install Windows 10, to run all the updates firs
 Setup command file here.
 
 ```
-powershell -Command "irm 'https://github.com/jaronwilding/dotfiles/raw/main/initial_setup.ps1' | iex"
+powershell -Command "irm 'https://github.com/jaronwilding/dotfiles/raw/main/windows10/setup-windows.ps1' | iex"
 ```
