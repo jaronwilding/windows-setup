@@ -4,6 +4,7 @@
 
     .DESCRIPTION
     Installs Python versions to C:\Custom\Managers\Pythonz
+    If already installed, will skip.
 #>
 
 function Get-TempDownloadsFolder{
@@ -73,7 +74,9 @@ Function Main() {
         foreach($py in $pythonz){
             $py_app = Get-Download $py.Url $py.Name
             $dest = $py.Destination
-            Start-Process $py_app -ArgumentList "/passive InstallAllUsers=1 TargetDir=$dest Include_launcher=0" -Wait
+            if (!(Test-Path -Path "$dest" -PathType Container)) {
+                Start-Process $py_app -ArgumentList "/passive InstallAllUsers=1 TargetDir=$dest Include_launcher=0" -Wait
+            }
         }
     }
     end {
