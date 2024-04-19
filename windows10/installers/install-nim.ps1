@@ -50,15 +50,7 @@ Function Main() {
         $temp_path = Get-TempDownloadsFolder
         $nim_releases = "https://api.github.com/repos/nim-lang/Nim/releases"
         $nim_dir = "C:\Custom\Managers\nim"
-
-        try {
-            $nim_version = (Invoke-WebRequest $nim_releases | ConvertFrom-Json)[0].tag_name -Replace "v", ""
-            $nim_url = "https://nim-lang.org/download/nim-$nim_version _x64.zip" -Replace " ", ""
-        }
-        catch {
-            $nim_url = "https://nim-lang.org/download/nim-2.0.4_x64.zip"
-        }
-        $nim = Get-Download $nim_url "nim.zip"
+        $nim = Get-Download "https://nim-lang.org/download/nim-2.0.4_x64.zip" "nim.zip"
         
         Expand-Archive $nim -DestinationPath $temp_path -Force
         Copy-Item -Path "$temp_path\nim*" -Destination "$nim_dir" -Recurse
@@ -69,7 +61,7 @@ Function Main() {
 
     }
     end {
-        Write-Output "NVM Installed"
+        Write-Output "NIM Installed"
     }
 }
 
