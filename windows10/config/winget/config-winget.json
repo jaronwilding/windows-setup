@@ -1,0 +1,30 @@
+[
+    "Microsoft.WindowsTerminal",
+    "Microsoft.VisualStudio.2022.Community",
+    "Microsoft.PowerToys",
+    "Microsoft.PowerShell",
+
+    "Starship.Starship",
+    "chrisant996.Clink",
+    "Git.Git",
+    "GitHub.cli",
+    
+    "Docker.DockerDesktop",
+    "MediaArea.MediaInfo.GUI",
+    "MediaArea.MediaInfo",
+    "Piriform.Defraggler",
+    "RARLab.WinRAR",
+    
+    "Bitwarden.Bitwarden",
+    "Mozilla.Firefox",
+    "Brave.Brave",
+
+    "VideoLAN.VLC",
+    "Discord.Discord",
+
+    "Valve.Steam",
+    "EpicGames.EpicGamesLauncher",
+    "Ubisoft.Connect",
+    "GOG.Galaxy",
+    "ElectronicArts.EADesktop"
+]
