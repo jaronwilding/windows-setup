@@ -48,6 +48,7 @@ Function Main() {
     }
     process {
         $temp_path = Get-TempDownloadsFolder
+        # I don't like this, but it's the best I've got for now. Maybe later I'll fix it to get proper
         $nim_releases = "https://api.github.com/repos/nim-lang/Nim/releases"
         $nim_dir = "C:\Custom\Managers\nim"
         $nim = Get-Download "https://nim-lang.org/download/nim-2.0.4_x64.zip" "nim.zip"

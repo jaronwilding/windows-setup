@@ -6,6 +6,7 @@
     Installs NVM to C:\Custom\Managers\nvm
     If already installed, will skip.
 #>
+
 function Get-TempDownloadsFolder{
     #Variable
     $parent = (New-Object -ComObject Shell.Application).NameSpace('shell:Downloads').Self.Path # Get the downloads folder
@@ -26,8 +27,6 @@ function Get-Download{
         [string]$fileName
     )
     begin {
-        Write-Host "URL: $url"
-        Write-Host "Filename: $fileName"
         $download_path = Get-TempDownloadsFolder
         $download_file = Join-Path $download_path $fileName
     }
