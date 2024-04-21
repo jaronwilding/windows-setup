@@ -1,0 +1,5 @@
+Windows Registry Editor Version 5.00
+
+; Credited to Techhut for this fix!
+; https://www.youtube.com/watch?v=XJFOXw75xtA
+[-HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\CloudStore\Store\Cache\DefaultAccount]

@@ -1,0 +1,35 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\Explorer]
+"DisableSearchBoxSuggestions"=dword:00000001        ; Disabling Cortana web search
+
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"ShowCortanaButton"=dword:00000000                  ; Disabling the Cortana button
+"OnboardUnpinCortana"=dword:00000001                ; Unpin the Cortana button
+
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Search]
+"CortanaConsent"=dword:00000000                     ; Disable Cortana consent
+"SearchboxTaskbarMode"=dword:00000000               ; Hiding the search bar
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Windows Search]
+"AllowCloudSearch"=dword:00000000                   ; Disabling Cloud search
+"AllowSearchToUseLocation"=dword:00000000           ; Disable Allow search and Cortana to use location
+"ConnectedSearchUseWeb"=dword:00000000              ; Disable searching the web or displaying web results in Search
+"DisableWebSearch"=dword:00000001                   ; Disabling Cortana from searching the web
+"AllowCortanaAboveLock"=dword:00000000              ; Disable Cortana
+"AllowCortana"=dword:00000000                       ; Disable Cortana
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PolicyManager\default\Experience\AllowCortana]
+"value"=dword:00000000                              ; Disable Cortana -  Default
+
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer]
+"HideSCAMeetNow"=dword:00000001                     ; Hiding the Meet Now button
+
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Feeds]
+"ShellFeedsTaskbarViewMode"=dword:00000002          ; Disabling the News and Interests
+
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"ShowTaskViewButton"=dword:00000000                 ; Disabling the Task View
+
+[HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\WindowsCopilot]
+"TurnOffWindowsCopilot"=dword:00000001              ; Disabling Windows Copilot

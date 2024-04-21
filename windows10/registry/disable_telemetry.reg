@@ -1,0 +1,67 @@
+Windows Registry Editor Version 5.00
+
+; This file is massive because Microsoft sucks hard.
+
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"ShowSyncProviderNotifications"=dword:00000000      ; Disables ads in File Explorer
+
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager]
+"ContentDeliveryAllowed"=dword:00000000
+"FeatureManagementEnabled"=dword:00000000
+"OemPreInstalledAppsEnabled"=dword:00000000
+"PreInstalledAppsEnabled"=dword:00000000
+"PreInstalledAppsEverEnabled"=dword:00000000
+"SilentInstalledAppsEnabled"=dword:00000000
+"SlideshowEnabled"=dword:00000000
+"SoftLandingEnabled"=dword:00000000
+"SystemPaneSuggestionsEnabled"=dword:00000000       ; Disables App suggestions on Start
+"RotatingLockScreenEnabled"=dword:00000000          ; Disables ads on Lock Screen
+"RotatingLockScreenOverlayEnabled"=dword:00000000   ; Disables ads on Lock Screen
+"SubscribedContent-338387Enabled"=dword:00000000    ; Disables ads on Lock Screen
+"SubscribedContent-338388Enabled"=dword:00000000    ; Disables Settings app suggestions
+"SubscribedContent-338393Enabled"=dword:00000000    ; Disables Settings app suggestions
+"SubscribedContent-310093Enabled"=dword:00000000    ; Disables Windows Experience
+"SubscribedContent-353694Enabled"=dword:00000000    ; Disables Suggested content
+"SubscribedContent-338389Enabled"=dword:00000000    ; Disables Get Even More out of Windows
+"SubscribedContent-353696Enabled"=dword:00000000    ; Disables Get Even More out of Windows
+"SubscribedContent-353698Enabled"=dword:00000000    ; Disables Timeline Suggestions
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\Windows Error\Reporting]
+"Disabled"=dword:00000001                           ; Disabling Windows Error Reporting
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection]
+"AllowTelemetry"=dword:00000000                     ; Disables Telemetry
+"LimitDiagnosticLogCollection"=dword:00000001       ; Disables diagnostic logging
+"DisableOneSettingsDownloads"=dword:00000001        ; Disables the OneSetting service
+"DoNotShowFeedbackNotifications"=dword:00000001     ; Disables the feedback service
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection]
+"AllowTelemetry"=dword:00000000                     ; Disables Telemetry
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection]
+"AllowTelemetry"=dword:00000000                     ; Disables Telemetry
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\SQMClient\Windows]
+"CEIPEnable"=dword:00000000                         ; Disable Windows Customer Experience
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\AppV\CEIP]
+"CEIPEnable"=dword:00000000                         ; Disable Windows Customer Experience
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\AppCompat]
+"AITEnable"=dword:00000000                          ; Disable Application Telemetry
+"DisableInventory"=dword:00000001                   ; Disable Inventory
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo]
+"Enabled"=dword:00000000                            ; Disable Windows Feedback Experience program
+"DisabledByGroupPolicy"=dword:00000001              ; Disable Windows Feedback Experience program
+
+
+[HKEY_CURRENT_USER\SOFTWARE\Policies\Microsoft\Windows\CurrentVersion\PushNotifications]
+"NoTileApplicationNotification"=dword:00000001      ; Disable Live tiles
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\UserProfileEngagement]
+"ScoobeSystemSettingEnabled"=dword:00000000         ; Disabling Windows Tips (2)
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\AdvertisingInfo]
+"Enabled"=dword:00000000                            ; Disabling personalized ads
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Privacy]
+"TailoredExperiencesWithDiagnosticDataEnabled"=dword:00000000   ; Disabling tailored experiences
+

@@ -1,0 +1,25 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Themes\Personalize]
+"SystemUsesLightTheme"=dword:00000000               ; Dark mode
+
+[HKEY_CURRENT_USER\Control Panel\Desktop]
+"JPEGImportQuality"=dword:00000064                  ; Enabling high-res backgrounds.
+
+[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"LaunchTo"=dword:00000001                           ; Setting explorer startup to This PC
+"ShowTaskViewButton"=dword:00000000                 ; Disabling the Task View
+"DisallowShaking"=dword:00000001                    ; Disabling Aero Shake
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Thumbnail Cache]
+"Autorun"=dword:00000000                            ; Disabling Thumbnail cleanup
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Explorer]
+"NoNewAppAlert"=dword:00000001                      ; Disabling new App alerts
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\Personalization]
+"NoLockScreenSlideshow"=dword:00000001              ; Disabling lock screen slide show
+
+[HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\CrashControl]
+"DisplayParameters"=dword:00000001                  ; Enabling BIOS detailed display
+"DisableEmoticon"=dword:00000001                    ; Disable the sad smiley face

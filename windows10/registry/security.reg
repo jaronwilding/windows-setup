@@ -1,8 +1,5 @@
 Windows Registry Editor Version 5.00
 
-[HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
-"ShowSyncProviderNotifications"=dword:00000000 ; Disabling ads in File Explorer
-
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Windows\CurrentVersion\ContentDeliveryManager]
 "RotatingLockScreenEnabled"=dword:00000000          ; Disabling ads on Lock Screen
 "RotatingLockScreenOverlayEnabled"=dword:00000000   ; Disabling ads on Lock Screen
@@ -15,40 +12,19 @@ Windows Registry Editor Version 5.00
 "SubscribedContent-353696Enabled"=dword:00000000    ; Disabling Get Even More out of Windows
 "SubscribedContent-353698Enabled"=dword:00000000    ; Disabling Timeline Suggestions
 
-[HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Microsoft\Windows\CurrentVersion\Policies\DataCollection]
-"AllowTelemetry"=dword:00000000                     ; Disable Telemetry
 
-[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\DataCollection]
-"AllowTelemetry"=dword:00000000                     ; Disable Telemetry
 
-[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\DataCollection]
-"AllowTelemetry"=dword:00000000                     ; Disable Telemetry
-"LimitDiagnosticLogCollection"=dword:00000001       ; Disable diagnostic logging
-"DisableOneSettingsDownloads"=dword:00000001        ; Disabling the OneSetting service
-"DoNotShowFeedbackNotifications"=dword:00000001     ; Disable the feedback service
+
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\PreviewBuilds]
 "AllowBuildPreview"=dword:00000000                  ; Disable the Windows Preview Build option
 
-[HKLM\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\CurrentVersion\Software Protection Platform]
 "NoGenTicket"=dword:00000001                        ; Disable KMS client online AVS validation
 
-[HKLM\SOFTWARE\Policies\Microsoft\SQMClient\Windows]
-"CEIPEnable"=dword:00000000                         ; Disable Windows Customer Experience
-
-[HKLM\SOFTWARE\Policies\Microsoft\AppV\CEIP]
-"CEIPEnable"=dword:00000000                         ; Disable Windows Customer Experience
-
-[HKLM\SOFTWARE\Policies\Microsoft\Windows\AppCompat]
-"AITEnable"=dword:00000000                          ; Disable Application Telemetry
-"DisableInventory"=dword:00000001                   ; Disable Inventory
-
-[HKLM\SOFTWARE\Policies\Microsoft\Windows\TabletPC]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows\TabletPC]
 "PreventHandwritingDataSharing"=dword:00000001      ; Disable Handwriting Data Collection
 
-[HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\TextInput]"
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\TextInput]"
 "AllowLinguisticDataCollection"=dword:00000000      ; Disable Linquistic Data Collection
 
-[HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\AdvertisingInfo]
-"Enabled"=dword:00000000                            ; Disable Windows Feedback Experience program
-"DisabledByGroupPolicy"=dword:00000001              ; Disable Windows Feedback Experience program
