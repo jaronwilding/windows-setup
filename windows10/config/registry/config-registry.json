@@ -1,0 +1,11 @@
+{
+    "baseurl": "https://github.com/jaronwilding/dotfiles/raw/main/windows10/registry/",
+    "files": [
+        "disable_cortana.reg",
+        "disable_edge.reg",
+        "disable_telemetry.reg",
+        "disable_windows11.reg",
+        "personalisation.reg",
+        "remove_preloaded_tiles.reg"
+    ]
+}
