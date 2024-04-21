@@ -25,11 +25,14 @@ function Backup-Computer{
     <#
     .SYNOPSIS
         Wrapper for two function calls to creating a restore point.
+
     .DESCRIPTION
        Makes use of Enable-ComputerRestore to make sure that creation of a restore point won't error out.
        Then makes use of Checkpoint-Computer and creates a custom restore point called "RestorePoint1".
+
     .INPUTS
         Accepts the standard arguments, such as -Verbose
+
     #>
     [CmdletBinding()]
     param()
@@ -252,22 +255,6 @@ function Enable-WinFeatures{
     }
 }
 
-function Install-WinGetApp {
-    param (
-        [string]$PackageID
-    )
-    begin {
-        Write-Verbose -Message "Preparing to install $PackageID"
-    }
-    process {
-        Write-Verbose -Message "Installing $Package"
-        winget install --silent --id "$PackageID" --accept-source-agreements --accept-package-agreements
-    }
-    end {
-        Write-Verbose -Message "Installing $Package"
-    }
-}
-
 function Remove-PreinstalledApplications{
     begin {
         Write-Output "--------------------------------------------------------"
@@ -288,49 +275,52 @@ function Remove-PreinstalledApplications{
 }
 
 function Install-ApplicationsWinget {
-    [CmdletBinding()]Param()
+    <#
+    .SYNOPSIS
+        Installs the Winget application, and then all corresponding applications.
+
+    .DESCRIPTION
+        Makes use of the hard-coded URL to a json list object. Alternatively a path to a json file can be passed as the first input,
+        and it will utilize the id's in there to install.
+
+    .PARAMETER WingetConfig
+        The path to a standalone json object to run the installer against.
+
+    .INPUTS
+        Accepts the standard arguments, such as -Verbose
+
+    #>
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $false, Position = 0)]
+        [string]
+        $WingetConfig
+    )
     begin {
         Write-Output "----------------------------"
         Write-Output "Installing via Winget..."
     }
     process {
         # Install winget
-        $hasPackageManager = Get-AppPackage -name "Microsoft.DesktopAppInstaller"
-        if(!$hasPackageManager){
-            Add-AppxPackage -Path 'https://github.com/microsoft/winget-cli/releases/latest/download/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle'
+        # Assume that Winget is installed if over version 5, as I cannot get around this stupid issue.
+        # Issue: https://github.com/PowerShell/PowerShell/issues/19031
+        if ($PSVersionTable.PSVersion.Major -le 5) {
+            Import-Module Appx
+            $hasPackageManager = Get-AppPackage -name "Microsoft.DesktopAppInstaller"
+            if(!$hasPackageManager) {
+                Add-AppxPackage -Path 'https://github.com/microsoft/winget-cli/releases/latest/download/Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle'
+            }
         }
 
-        $WinGet = @(
-            "Microsoft.DotNet.SDK.3_1",
-            "Microsoft.DotNet.SDK.5",
-            "Microsoft.DotNet.SDK.6",
-            "Microsoft.DotNet.SDK.7",
-            "Microsoft.DotNet.SDK.8",
-            "Microsoft.WindowsTerminal",
-            "Microsoft.PowerToys",
-            "Microsoft.PowerShell",
-            "Starship.Starship",
-            "Docker.DockerDesktop",
-            "chrisant996.Clink",
-            "MediaArea.MediaInfo.GUI",
-            "MediaArea.MediaInfo",
-            "Git.Git",
-            "GitHub.cli",
-            "Piriform.Defraggler",
-            "RARLab.WinRAR",
-            "Mozilla.Firefox",
-            "VideoLAN.VLC",
-            "Discord.Discord",
-            "Valve.Steam",
-            "EpicGames.EpicGamesLauncher",
-            "Ubisoft.Connect",
-            "GOG.Galaxy",
-            "ElectronicArts.EADesktop"
-
-        )
-        ForEach ($item in $WinGet) {
-            Write-Verbose "Installing $item"
-            Install-WinGetApp -PackageID "$item" | Out-Null
+        if (!$WingetConfig) {
+            $Packages = Invoke-WebRequest -Uri "https://github.com/jaronwilding/dotfiles/raw/main/windows10/config/winget/config-winget.json" | ConvertFrom-Json
+        } else {
+            $Packages = Get-Content -Path $WingetConfig -Raw | ConvertFrom-Json
+        }
+        
+        foreach ($Package in $Packages) {
+            Write-Verbose "Installing $Package"
+            Start-Process "winget" -ArgumentList "install --silent --id $Package --accept-source-agreements --accept-package-agreements" -Wait -NoNewWindow -WhatIf
         }
     }
     end {
@@ -374,7 +364,7 @@ function Install-ApplicationsCustom {
 
         # -----------------------
         Write-Verbose "Installing MKVToolNix"
-        $mkvtoolnix = Get-Download "https://mkvtoolnix.download//windows/releases/83.0/mkvtoolnix-64-bit-83.0.7z" "mkvtoolnix-64-bit-83.0.7z"
+        $mkvtoolnix = Get-Download "https://mkvtoolnix.download/windows/releases/83.0/mkvtoolnix-64-bit-83.0.7z" "mkvtoolnix-64-bit-83.0.7z"
         # Extract-Download $ffmpeg -DestinationPath "$temp_path" -Force
         Extract-Download -Folder "$temp_path" -File "$mkvtoolnix"
         $mkvtoolnix_items = @(
