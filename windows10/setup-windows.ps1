@@ -150,7 +150,7 @@ function Get-Download {
         
         if($UseCurl -eq $false) {
             Write-Verbose "Downloading $FileName using standard Powershell cmdlets"
-            Invoke-WebRequest -Uri $Url -OutFile $DownloadFile -Resume
+            Invoke-WebRequest -Uri $Url -OutFile $DownloadFile
 
             return $DownloadFile
         }
@@ -161,7 +161,7 @@ function Get-Download {
         }
         catch {
             Write-Verbose "Downloading $FileName using standard Powershell cmdlets"
-            Invoke-WebRequest -Uri $Url -OutFile $DownloadFile -Resume
+            Invoke-WebRequest -Uri $Url -OutFile $DownloadFile
         }
 
         return $DownloadFile
@@ -467,7 +467,7 @@ function Optimize-Windows {
         # Set-Backup
         Set-RegistryOptions
         Set-Privacy
-        Remove-PreinstalledApplications
+        # Remove-PreinstalledApplications
         Enable-WinFeatures
         Install-ApplicationsWinget
         Install-ApplicationsCustom
