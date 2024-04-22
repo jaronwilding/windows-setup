@@ -1,3 +1,20 @@
+<#
+    .SYNOPSIS
+        A bootstrapper for windows 10 installs.
+
+    .DESCRIPTION
+        Creates a restore point, then will download configuration files from the repo and run them.
+        This includes registry tweaks, program uninstalls, program installs, power options, debloating,
+        and version managers for specific programs.
+#>
+
+class RegisterOptions 
+{
+    [string] $BaseUrl
+    [System.Collections.Generic.List[string]] $Files
+}
+
+# TODO: Fix this
 function Expand-CustomArchive {
     param (
         [string]$Folder,
@@ -10,16 +27,22 @@ function Expand-CustomArchive {
     $Env:Path = $Env:Path + ";C:\Program Files\7-Zip"
     if (Test-Path -Path "$File" -PathType Leaf) {
         switch ($File.Split(".") | Select-Object -Last 1) {
-            "rar" { Start-Process -FilePath "UnRar.exe" -ArgumentList "x","-op'$Folder'","-y","$File" -WorkingDirectory "$Env:ProgramFiles\WinRAR\" -Wait | Out-Null }
-            "zip" { 7z x -o"$Folder" -y "$File" | Out-Null }
-            "7z" { 7z x -o"$Folder" -y "$File" | Out-Null }
-            "exe" { 7z x -o"$Folder" -y "$File" | Out-Null }
+            "rar" { 
+                Start-Process -FilePath "UnRar.exe" -ArgumentList "x","-op'$Folder'","-y","$File" -WorkingDirectory "$Env:ProgramFiles\WinRAR\" -Wait | Out-Null 
+            }
+            "zip" { 
+                7z x -o"$Folder" -y "$File" | Out-Null 
+            }
+            "7z" { 
+                7z x -o"$Folder" -y "$File" | Out-Null 
+            }
+            "exe" { 
+                7z x -o"$Folder" -y "$File" | Out-Null 
+            }
             Default { Write-Error "No way to Extract $File !!!"; Break }
         }
     }
 }
-
-# Invoke-WebRequest "https://win.rustup.rs/x86_64"
 
 function Backup-Computer{
     <#
@@ -79,6 +102,7 @@ function Get-TemporaryDownloadsFolder {
         return $TemporaryPath
     }
 }
+
 function Get-Download {
     <#
     .SYNOPSIS
@@ -94,6 +118,9 @@ function Get-Download {
     .PARAMETER FileName
         The name to call the downloaded file.
 
+    .PARAMETER UseCurl
+        Whether to use Curl or not by default. Defaults to true
+
     .INPUTS
         Accepts the standard arguments, such as -Verbose
 
@@ -103,7 +130,7 @@ function Get-Download {
     .EXAMPLE
         Get-Download -Url "https://nim-lang.org/download/nim-2.0.4_x64.zip" -FileName "nim.zip" -Verbose
         Get-Download "https://nim-lang.org/download/nim-2.0.4_x64.zip" "nim.zip" -Verbose
-
+        
     #>
     [CmdletBinding()]
     [OutputType([string])]
@@ -112,24 +139,36 @@ function Get-Download {
         [string]$Url,
 
         [Parameter(Mandatory = $true)]
-        [string]$FileName
+        [string]$FileName,
+
+        [Parameter(Mandatory = $false)]
+        [string]$UseCurl = $true
     )
     process {
         $DownloadPath = Get-TemporaryDownloadsFolder
         $DownloadFile = Join-Path $DownloadPath $FileName
+        
+        if($UseCurl -eq $false) {
+            Write-Verbose "Downloading $FileName using standard Powershell cmdlets"
+            Invoke-WebRequest -Uri $Url -OutFile $DownloadFile -Resume
+
+            return $DownloadFile
+        }
+
         try {
             Write-Verbose "Downloading $FileName using Curl"
             Start-Process "curl.exe" -ArgumentList "--no-progress-meter -o $DownloadFile $Url" -Wait -NoNewWindow
         }
         catch {
             Write-Verbose "Downloading $FileName using standard Powershell cmdlets"
-            Invoke-WebRequest -Uri $Url -OutFile $DownloadFile -Force
+            Invoke-WebRequest -Uri $Url -OutFile $DownloadFile -Resume
         }
 
         return $DownloadFile
     }
 }
 
+# TODO: Fix this
 function Set-Privacy{
     [CmdletBinding()]Param()
     begin {
@@ -148,62 +187,53 @@ function Set-Privacy{
     }
 }
 
-function Optimize-Settings {
-    [CmdletBinding()]Param()
+# TODO: Fix this
+function Set-RegistryOptions {
+    <#
+    .SYNOPSIS
+        Installs the Winget application, and then all corresponding applications.
+
+    .DESCRIPTION
+        Makes use of the hard-coded URL to a json list object. Alternatively a path to a json file can be passed as the first input,
+        and it will utilize the id's in there to install.
+
+    .PARAMETER WingetConfig
+        The path to a standalone json object to run the installer against.
+
+    .INPUTS
+        Accepts the standard arguments, such as -Verbose
+
+    #>
+    [CmdletBinding()]
+    param (
+        [Parameter(Mandatory = $false, Position = 0)]
+        [string]
+        $WingetConfig
+    )
     begin {
-        Write-Output "--------------------------------------------------------"
-        Write-Output "Adjusting settings..."
+        Write-Output "----------------------------"
+        Write-Output "Installing registry tweaks..."
     }
     process {
-        $csvfile = Get-DownloadPath "defaultWindowsSettings.csv"
-
-        If(!(Test-Path -Path $csvfile)){
-            Write-Verbose "Downloading Default windows settings..."
-            Invoke-WebRequest "https://github.com/jaronwilding/dotfiles/raw/main/windows10/config/defaultWindowsSettings.csv" -OutFile $csvfile
+        $RegistryOptions = [RegisterOptions](Invoke-WebRequest -Uri "https://github.com/jaronwilding/dotfiles/raw/main/windows10/config/registry/config-registry.json" | ConvertFrom-Json)
+        $Url = $RegistryOptions.BaseUrl
+        
+        $progress = 1
+        # $progress_percent = ($progress / ($RegistryOptions.Files.Count)) * 100
+        Write-Progress -Activity "Installing Registry Tweaks" -Status "Initalizing" -Id 1 -PercentComplete (($progress / ($RegistryOptions.Files.Count)) * 100)
+        foreach ($File in $RegistryOptions.Files) {
+            $Url = (@($RegistryOptions.BaseUrl, $File) | ForEach-Object {$_.trim('/')}) -join '/'
+            $DownloadedFile = Get-Download -Url $Url -FileName $File -UseCurl $false
+            Write-Verbose "$File downloaded, loading..."
+            Invoke-Command {reg import $DownloadedFile *>&1 | Out-Null}
         }
-
-        $settingValues = Import-Csv $csvfile | ForEach-Object {
-            [PSCustomObject]@{
-                "path"          = $_.Path
-                "key"           = $_.Key
-                'value'         = $_.Value
-                "propertytype"  = $_.PropertyType
-                'description'   = $_.description
-            }
-        }
-        ForEach($setting in $settingValues){
-            Write-Verbose $setting.description
-            If(!(Test-Path -Path $setting.path)) {
-                New-Item -Path $setting.path | Out-Null
-            }
-            New-ItemProperty -Path $setting.path -Name $setting.key -Value $setting.value -PropertyType $setting.propertytype -Force | Out-Null
-        }
-
-        $services =  @(
-            'DiagTrack'
-        )
-        ForEach ($serviceName in $services) {
-            if (Get-Service -Name $serviceName -ErrorAction SilentlyContinue) {
-                Write-Verbose "Service $serviceName exists. Disabling service..."
-                New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Services\$serviceName" -Name Start -Value $4 -PropertyType DWORD -Force | Out-Null
-                Stop-Service $serviceName -Force
-                $process = Get-Process -Name $serviceName -ErrorAction SilentlyContinue
-                if ($process) {
-                    Write-Verbose "Process with PID $($process.Id) exists. Killing process..."
-                    Stop-Process -Id $process.Id -Force
-                }
-                sc stop $serviceName
-            } else {
-                Write-Debug "Service $serviceName does not exist."
-            }
-        }
-
     }
     end {
-        Write-Verbose "Settings have been adjusted."
+        Write-Output "Installed all Registry tweaks"
     }
 }
 
+# TODO: Fix this
 function Enable-WinFeatures{
     [CmdletBinding()]Param()
     begin {
@@ -255,6 +285,7 @@ function Enable-WinFeatures{
     }
 }
 
+# TODO: Fix this
 function Remove-PreinstalledApplications{
     begin {
         Write-Output "--------------------------------------------------------"
@@ -328,6 +359,7 @@ function Install-ApplicationsWinget {
     }
 }
 
+# TODO: Fix this
 function Install-ApplicationsCustom {
     [CmdletBinding()]Param()
     begin {
@@ -391,6 +423,7 @@ function Install-ApplicationsCustom {
     }
 }
 
+# TODO: Fix this
 function Install-Managers {
     [CmdletBinding()]Param()
     begin {
@@ -432,13 +465,13 @@ function Optimize-Windows {
     }
     process {
         # Set-Backup
+        Set-RegistryOptions
+        Set-Privacy
         Remove-PreinstalledApplications
-        # Install-ApplicationsWinget
+        Enable-WinFeatures
+        Install-ApplicationsWinget
         Install-ApplicationsCustom
-        Install-Managers
-        # Optimize-Settings
-        # Set-Privacy
-        # Enable-WinFeatures
+        # Install-Managers
     }
     end {
         Write-Output "Windows 10 has finished setting up."
