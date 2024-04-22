@@ -378,19 +378,19 @@ function Install-ApplicationsCustom {
         }
 
         # -----------------------
-        $zip7 = Get-Download "https://www.7-zip.org/a/7z2404-x64.msi" "7z2404-x64.msi"
-        Write-Verbose "Installing 7zip"
-        Start-Process 'msiexec.exe' -ArgumentList "/I $zip7 /qn" -Wait
+        # $zip7 = Get-Download "https://www.7-zip.org/a/7z2404-x64.msi" "7z2404-x64.msi"
+        # Write-Verbose "Installing 7zip"
+        # Start-Process 'msiexec.exe' -ArgumentList "/I $zip7 /qn" -Wait
 
         # -----------------------
         Write-Verbose "Installing FFMPEG"
-        $ffmpeg = Get-Download "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip" "ffmpeg-master-latest-win64-gpl.zip"
+        $ffmpeg = Get-Download "https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmpeg-master-latest-win64-gpl.zip" "ffmpeg-master-latest-win64-gpl.zip" -UseCurl $false
         Expand-Archive $ffmpeg -DestinationPath "$temp_path" -Force
         Copy-Item -Path "$temp_path\ffmpeg-master-latest-win64-gpl\bin\*.exe" -Destination "$tools_path"
 
         # -----------------------
         Write-Verbose "Installing Aria2C"
-        $aria = Get-Download "https://github.com/aria2/aria2/releases/download/release-1.37.0/aria2-1.37.0-win-64bit-build1.zip" "aria.zip"
+        $aria = Get-Download "https://github.com/aria2/aria2/releases/download/release-1.37.0/aria2-1.37.0-win-64bit-build1.zip" "aria.zip" -UseCurl $false
         Expand-Archive $aria -DestinationPath "$temp_path" -Force
         Copy-Item -Path "$temp_path\aria2-1.37.0-win-64bit-build1\*.exe" -Destination "$tools_path"
 
@@ -465,12 +465,12 @@ function Optimize-Windows {
     }
     process {
         # Set-Backup
-        Set-RegistryOptions
-        Set-Privacy
+        # Set-RegistryOptions
+        # Set-Privacy
         # Remove-PreinstalledApplications
-        Enable-WinFeatures
+        # Enable-WinFeatures
         Install-ApplicationsWinget
-        Install-ApplicationsCustom
+        # Install-ApplicationsCustom
         # Install-Managers
     }
     end {
