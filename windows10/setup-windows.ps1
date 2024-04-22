@@ -28,7 +28,7 @@ function Expand-CustomArchive {
     if (Test-Path -Path "$File" -PathType Leaf) {
         switch ($File.Split(".") | Select-Object -Last 1) {
             "rar" { 
-                Start-Process -FilePath "UnRar.exe" -ArgumentList "x","-op'$Folder'","-y","$File" -WorkingDirectory "$Env:ProgramFiles\WinRAR\" -Wait | Out-Null 
+                7z x -o"$Folder" -y "$File" | Out-Null
             }
             "zip" { 
                 7z x -o"$Folder" -y "$File" | Out-Null 
@@ -351,7 +351,7 @@ function Install-ApplicationsWinget {
         
         foreach ($Package in $Packages) {
             Write-Verbose "Installing $Package"
-            Start-Process "winget" -ArgumentList "install --silent --id $Package --accept-source-agreements --accept-package-agreements" -Wait -NoNewWindow -WhatIf
+            Start-Process "winget" -ArgumentList "install --silent --id $Package --accept-source-agreements --accept-package-agreements" -Wait -NoNewWindow
         }
     }
     end {
@@ -397,8 +397,8 @@ function Install-ApplicationsCustom {
         # -----------------------
         Write-Verbose "Installing MKVToolNix"
         $mkvtoolnix = Get-Download "https://mkvtoolnix.download/windows/releases/83.0/mkvtoolnix-64-bit-83.0.7z" "mkvtoolnix-64-bit-83.0.7z"
-        # Extract-Download $ffmpeg -DestinationPath "$temp_path" -Force
-        Extract-Download -Folder "$temp_path" -File "$mkvtoolnix"
+        # Expand-CustomArchive $ffmpeg -DestinationPath "$temp_path" -Force
+        Expand-CustomArchive -Folder "$temp_path" -File "$mkvtoolnix"
         $mkvtoolnix_items = @(
             "mkvextract.exe",
             "mkvinfo.exe",
@@ -414,8 +414,8 @@ function Install-ApplicationsCustom {
         # -----------------------
         Write-Verbose "Installing SharkCodecs"
         $shark_codecs = Get-Download "https://files1.majorgeeks.com/10afebdbffcd4742c81a3cb0f6ce4092156b4375/multimedia/Shark007Codecs.7z" "Shark007Codecs.7z"
-        # Extract-Download $ffmpeg -DestinationPath "$temp_path" -Force
-        Extract-Download -Folder "$tweak_path" -File "$shark_codecs"
+        # Expand-CustomArchive $ffmpeg -DestinationPath "$temp_path" -Force
+        Expand-CustomArchive -Folder "$tweak_path" -File "$shark_codecs"
 
     }
     end {
