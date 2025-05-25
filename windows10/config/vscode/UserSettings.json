@@ -1,0 +1,265 @@
+{
+    //#region | Colour display settings | <-- Themes, colours, fonts, semantic highlighting, etc.
+
+    "workbench.colorTheme": "Dracula Theme",
+    "editor.tokenColorCustomizations": {
+        "textMateRules": [
+            {
+                "name": "Python - Docstring text",
+                "scope": [
+                    "comment.block.cs",
+                    "string.quoted.docstring.multi",
+                    "string.quoted.docstring.multi.python punctuation.definition.string.begin",
+                    "string.quoted.docstring.multi.python punctuation.definition.string.end",
+                    "string.quoted.docstring.multi.python constant.character.escape"
+                ],
+                "settings": {
+                    "foreground": "#71e089"
+                }
+            },
+            {
+                "name": "Namespaces",
+                "scope": [
+                    "entity.name.namespace",
+                    "entity.name.type.namespace.cs",
+                ],
+                "settings": {
+                    "foreground": "#56cfff",
+                    "fontStyle": "italic bold"
+                }
+            },
+            {
+                "name": "Python - Comment text",
+                "scope": [
+                    "punctuation.definition.comment.cs",
+                    "comment.line.double-slash.cs",
+                    "comment.line.number-sign.python",
+                    "comment.line.number-sign.python punctuation.definition.comment"
+                ],
+                "settings": {
+                    "foreground": "#83c6c9"
+                }
+            },
+            {
+                "name": "Python - Property",
+                "scope": [
+                    "variable.other.property"
+                ],
+                "settings": {
+                    "foreground": "#F1FA8C",
+                    "fontStyle": "bold"
+                }
+            },
+            {
+                "scope": [
+                    "variable.other.object.cs"
+                ],
+                "settings": {
+                    "foreground": "#8BE9FD"
+                }
+            },
+            {
+                "name": "C# - Function",
+                "scope": [
+                    "entity.name.function.cs",
+                    "entity.name.type.class.cs",
+                ],
+                "settings": {
+                    "foreground": "#50FA7B"
+                }
+            }
+
+        ]
+    },
+    "terminal.integrated.fontFamily": "CaskaydiaCove Nerd Font Mono, monospace",
+
+    "[python]": {
+        "editor.semanticHighlighting.enabled": true,
+    },
+    "[csharp]": {
+        "editor.semanticHighlighting.enabled": false,
+    },
+    //#endregion
+
+    //#endregion
+
+    //#region | Version Control settings | <-- Git, Perforce, etc.
+
+    "perforce.user": "jwilding-perforce",
+    "perforce.client": "jwilding-perforce.LQABNEDTP0063._Development",
+    "perforce.port": "ssl:52.147.58.109:1666",
+
+    //#endregion
+
+    //#region | Editor settings | <-- Editor settings
+
+    "security.workspace.trust.enabled": false,
+    "editor.inlineSuggest.enabled": true,
+    "workbench.startupEditor": "none",
+    "json.schemas": [],
+    "files.associations": {
+        "*.json": "jsonc"
+    },
+
+
+    //#endregion
+ 
+    //#region | Terminal settings | <-- Terminal settings
+
+    "terminal.integrated.defaultProfile.windows": "PowerShell",
+    "terminal.integrated.env.windows": {},
+    "output.smartScroll.enabled": false,
+
+    //#endregion
+
+    //#region | Python settings | <-- Python settings
+
+    "python.autoComplete.extraPaths": [
+        "c:\\Users\\jwilding\\.vscode\\extensions\\fxtd-odyssey.mayapy-1.0.4\\mayaSDK",
+        "c:\\Users\\Jaron\\.vscode\\extensions\\fxtd-odyssey.mayapy-1.0.4\\mayaSDK",
+        "C:/users/${env:USERNAME}/.vscode/extensions/fxtd-odyssey.mayapy-1.0.4/mayaSDK",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/external.python",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/internal.python",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/internal.python/lacallbackmgr",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/internal.python/ladeadlinemgr",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/internal.python/ladeadlineui",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/internal.python/laliquidmenu",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/internal.python/lam_publishmgr",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/internal.python/lamongo",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/internal.python/lanamespacemgr",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/internal.python/larepathmgr",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/internal.python/lacore",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/internal.python/laqtui",
+
+        "C:/_LA.Repositories/_Streams/_Environment.Maya.2024/Maya2024.Module/scripts",
+        "C:/_LA.Repositories/_Streams/_Environment.Maya.2024/Maya2024.Libraries/Liquid/scripts",
+        "C:/_LA.Repositories/_Streams/_Environment.Maya.2024/Maya2024.Libraries/External/scripts"
+
+    ],
+    "python.analysis.extraPaths": [
+        "C:/users/${env:USERNAME}/.vscode/extensions/fxtd-odyssey.mayapy-1.0.4/mayaSDK",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/external.python",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/internal.python",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/internal.python/lacallbackmgr",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/internal.python/ladeadlinemgr",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/internal.python/ladeadlineui",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/internal.python/laliquidmenu",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/internal.python/lam_publishmgr",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/internal.python/lamongo",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/internal.python/lanamespacemgr",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/internal.python/larepathmgr",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/internal.python/lacore",
+        "C:/_LA.Repositories/_Environment/_Environment.Maya.2023/Maya2023.Libraries/internal.python/laqtui",
+
+        "C:/_LA.Repositories/_Streams/_Environment.Maya.2024/Maya2024.Module/scripts",
+        "C:/_LA.Repositories/_Streams/_Environment.Maya.2024/Maya2024.Libraries/Liquid/scripts",
+        "C:/_LA.Repositories/_Streams/_Environment.Maya.2024/Maya2024.Libraries/External/scripts"
+    ],
+
+    //#endregion
+
+    //#region | Extension settings | <-- Extension settings
+
+    //#region | YAML Settings
+    //#endregion
+
+    //#region Code Runner settings
+
+    "code-runner.saveFileBeforeRun": true,
+    "code-runner.executorMap": {
+    
+        "javascript": "node",
+        "java": "cd $dir && javac $fileName && java $fileNameWithoutExt",
+        "c": "cd $dir && gcc $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "zig": "zig run",
+        "cpp": "cd $dir && g++ $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "objective-c": "cd $dir && gcc -framework Cocoa $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "php": "php",
+        "python": "$pythonPath $fullFileName",         
+        "perl": "perl",
+        "perl6": "perl6",
+        "ruby": "ruby",
+        "go": "go run",
+        "lua": "lua",
+        "groovy": "groovy",
+        "powershell": "powershell -ExecutionPolicy ByPass -File",
+        "bat": "cmd /c",
+        "shellscript": "bash",
+        "fsharp": "fsi",
+        "csharp": "scriptcs",
+        "vbscript": "cscript //Nologo",
+        "typescript": "ts-node",
+        "coffeescript": "coffee",
+        "scala": "scala",
+        "swift": "swift",
+        "julia": "julia",
+        "crystal": "crystal",
+        "ocaml": "ocaml",
+        "r": "Rscript",
+        "applescript": "osascript",
+        "clojure": "lein exec",
+        "haxe": "haxe --cwd $dirWithoutTrailingSlash --run $fileNameWithoutExt",
+        "rust": "cd $dir && rustc $fileName && $dir$fileNameWithoutExt",
+        "racket": "racket",
+        "scheme": "csi -script",
+        "ahk": "autohotkey",
+        "autoit": "autoit3",
+        "dart": "dart",
+        "pascal": "cd $dir && fpc $fileName && $dir$fileNameWithoutExt",
+        "d": "cd $dir && dmd $fileName && $dir$fileNameWithoutExt",
+        "haskell": "runghc",
+        "nim": "nim compile --verbosity:0 --hints:off --run",
+        "lisp": "sbcl --script",
+        "kit": "kitc --run",
+        "v": "v run",
+        "sass": "sass --style expanded",
+        "scss": "scss --style expanded",
+        "less": "cd $dir && lessc $fileName $fileNameWithoutExt.css",
+        "FortranFreeForm": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "fortran-modern": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "fortran_fixed-form": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "fortran": "cd $dir && gfortran $fileName -o $fileNameWithoutExt && $dir$fileNameWithoutExt",
+        "sml": "cd $dir && sml $fileName"
+    },
+    "workbench.iconTheme": "material-icon-theme",
+    "explorer.compactFolders": false,
+    "explorer.confirmDelete": false,
+    "update.showReleaseNotes": false,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    "editor.largeFileOptimizations": false,
+    "github.copilot.editor.enableAutoCompletions": true,
+    "cmake.pinnedCommands": [
+        "workbench.action.tasks.configureTaskRunner",
+        "workbench.action.tasks.runTask"
+    ],
+    "liveServer.settings.donotShowInfoMsg": true,
+    "[javascript]": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "remote.SSH.remotePlatform": {
+        "192.168.0.203": "linux"
+    },
+    "[jsonc]": {
+        "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "explorer.fileNesting.patterns": {
+        "*.ts": "${capture}.js",
+        "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+        "*.jsx": "${capture}.js",
+        "*.tsx": "${capture}.ts",
+        "tsconfig.json": "tsconfig.*.json",
+        "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb, bun.lock",
+        "Cargo.toml": "Cargo.lock",
+        "*.sqlite": "${capture}.${extname}-*",
+        "*.db": "${capture}.${extname}-*",
+        "*.sqlite3": "${capture}.${extname}-*",
+        "*.db3": "${capture}.${extname}-*",
+        "*.sdb": "${capture}.${extname}-*",
+        "*.s3db": "${capture}.${extname}-*"
+    },
+    "cmake.automaticReconfigure": false,
+    
+    //#endregion
+
+    //#endregion
+}

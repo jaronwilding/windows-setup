@@ -1,3 +1,4 @@
+#Requires -RunAsAdministrator
 <#
     .SYNOPSIS
         Installs Golang
@@ -6,6 +7,7 @@
         Installs Golang to C:\Custom\Managers\rust\cargo and C:\Custom\Managers\rust\rustup
         If already installed, will skip.
 #>
+
 
 function Get-TemporaryDownloadsFolder {
     <#
@@ -78,7 +80,14 @@ function Get-Download {
         $DownloadFile = Join-Path $DownloadPath $FileName
         try {
             Write-Verbose "Downloading $FileName using Curl"
-            Start-Process "curl.exe" -ArgumentList "--no-progress-meter -o $DownloadFile $Url" -Wait -NoNewWindow
+            # Start-Process "curl.exe" -ArgumentList "--no-progress-meter -o $DownloadFile $Url" -Wait -NoNewWindow
+            & curl.exe --fail --location -o $DownloadFile $Url
+            if ($LASTEXITCODE -ne 0) {
+                throw "Curl failed with exit code $LASTEXITCODE"
+            }
+            if ((Get-Item $DownloadFile).Length -lt 200) {
+                throw "Downloaded file appears too small. Something went wrong."
+            }
         }
         catch {
             Write-Verbose "Downloading $FileName using standard Powershell cmdlets"
@@ -89,8 +98,9 @@ function Get-Download {
     }
 }
 
-Function Main() {
-    [CmdletBinding()]Param()
+function Install-Golang() {
+    [CmdletBinding()]
+    param()
     begin {
         Write-Output "Installing Golang"
     }
@@ -100,6 +110,8 @@ Function Main() {
         $latestRelease = $releases.files | Where-Object { $_.filename.EndsWith(".windows-amd64.msi")} | Select-Object -First 1
         $golang_url = $latestRelease.filename
         $golang = Get-Download "https://go.dev/dl/$golang_url" "$golang_url"
+        Write-Debug "Golang URL: https://go.dev/dl/$golang_url"
+        Write-Debug "Golang Downloaded: $golang"
         Write-Verbose "Installing Golang"
         Start-Process 'msiexec.exe' -ArgumentList "/I $golang INSTALLDIR=C:\Custom\Managers\Golang /qn" -Wait
     }
@@ -107,6 +119,3 @@ Function Main() {
         Write-Output "Golang Installed"
     }
 }
-
-Main
-
